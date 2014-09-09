@@ -1,0 +1,16 @@
+<table>
+<th>
+  <td>name</td>
+  <td>title</td>
+</th>
+<% @people.each do |person| %>
+<tr>
+  <td><%= person.name %></td>
+  <td><%= person.title %></td>
+</tr>
+<% end %>
+</table>
+<form action="/people" name="destroy" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete All!">
+</form>

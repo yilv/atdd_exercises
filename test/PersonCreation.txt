@@ -1,0 +1,48 @@
+*** Settings ***
+Test Setup        Run Keywords    Open Browser    ${SERVER}    AND    DeletePeople
+Test Teardown     Run Keywords    DeletePeople    AND    Close Browser
+Library           Selenium2Library
+
+*** Variables ***
+${SERVER}         http://localhost:4567
+
+*** Test Cases ***
+SuccessfullyCreateAPerson
+    CreatePerson    Lv Yi    Coach
+    VerifyOutput    Lv Yi, Coach has been created!
+    VerifyPerson    Lv Yi    Coach
+
+SuccessfullyCreateMultiplePersons
+    CreatePerson    Lv Yi    Coach
+    CreatePerson    Lv Lechun    Daughter
+    VerifyOutput    Lv Lechun, Daughter has been created!
+    VerifyPerson    Lv Lechun    Daughter
+    VerifyPerson    Lv Yi    Coach
+
+NotCreateSamePerson
+    CreatePerson    Lv Yi    Coach
+    CreatePerson    Lv Yi    Developer
+    VerifyOutput    Lv Yi already exists!
+    VerifyPerson    Lv Yi    Coach
+
+*** Keywords ***
+CreatePerson
+    [Arguments]    ${name}    ${title}
+    Go To    ${SERVER}/create
+    Input Text    name    ${name}
+    Input Text    title    ${title}
+    Submit Form
+
+VerifyPerson
+    [Arguments]    ${name}    ${title}
+    Go To    ${SERVER}/people
+    Page Should Contain    ${name}
+    Page Should Contain    ${title}
+
+VerifyOutput
+    [Arguments]    ${output}
+    Page Should Contain    ${output}
+
+DeletePeople
+    Go To    ${SERVER}/people
+    Submit Form    destroy
