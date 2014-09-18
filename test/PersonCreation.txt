@@ -25,6 +25,11 @@ NotCreateSamePerson
     VerifyOutput    Lv Yi already exists!
     VerifyPerson    Lv Yi    Coach
 
+RulesOnNameAndTitle
+    [Template]    ApplyRulesOnCreatingPerson
+    Lv Yi    Coach    Lv Yi, Coach has been created!
+    20 Lv Yi    Coach    Invalid name!
+
 *** Keywords ***
 CreatePerson
     [Arguments]    ${name}    ${title}
@@ -46,3 +51,8 @@ VerifyOutput
 DeletePeople
     Go To    ${SERVER}/people
     Submit Form    destroy
+
+ApplyRulesOnCreatingPerson
+    [Arguments]    ${name}    ${title}    ${output}
+    CreatePerson    ${name}    ${title}
+    VerifyOutput    ${output}
