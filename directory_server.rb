@@ -8,6 +8,10 @@ class Person
   property :id, Serial
   property :name, Text, :required => true
   property :title, Text
+
+  def self.existing_name(name)
+    Person.first(:name => name)
+  end
 end
 
 DataMapper.finalize.auto_upgrade!
@@ -21,14 +25,14 @@ get '/create' do
 end
 
 post '/create' do
-  unless Person.first(:name => params[:name])
+  if Person.existing_name(params[:name])
+    "#{params[:name]} already exists!"
+  else
     person = Person.new
     person.name = params[:name]
     person.title = params[:title]
     person.save
     "#{params[:name]}, #{params[:title]} has been created!"
-  else
-    "#{params[:name]} already exists!"
   end
 end
 
