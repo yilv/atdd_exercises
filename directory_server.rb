@@ -12,6 +12,10 @@ class Person
   def self.existing_name(name)
     Person.first(:name => name)
   end
+
+  def self.invalid_name(name)
+    name =~ /^[0-9]/
+  end
 end
 
 DataMapper.finalize.auto_upgrade!
@@ -27,6 +31,8 @@ end
 post '/create' do
   if Person.existing_name(params[:name])
     "#{params[:name]} already exists!"
+  elsif Person.invalid_name(params[:name])
+    "Invalid name!"
   else
     person = Person.new
     person.name = params[:name]
