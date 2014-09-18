@@ -14,7 +14,7 @@ class Person
   end
 
   def self.invalid_name(name)
-    name =~ /^[0-9]/
+    (name =~ /^[^a-zA-Z]/) || (name.size > 20)
   end
 end
 

@@ -29,6 +29,8 @@ RulesOnNameAndTitle
     [Template]    ApplyRulesOnCreatingPerson
     Lv Yi    Coach    Lv Yi, Coach has been created!
     20 Lv Yi    Coach    Invalid name!
+    Lv Yi 88888888888888    Coach    Lv Yi 88888888888888, Coach has been created!
+    Lv Yi 888888888888888    Coach    Invalid name!
 
 *** Keywords ***
 CreatePerson
