@@ -16,6 +16,11 @@ class Person
   def self.invalid_name(name)
     (name =~ /^[^a-zA-Z]/) || (name.size > 20)
   end
+
+  def self.invalid_title(title)
+    if (title == "") then return false end
+    !(title =~ /Coach|Developer/)
+  end
 end
 
 DataMapper.finalize.auto_upgrade!
@@ -33,6 +38,8 @@ post '/create' do
     "#{params[:name]} already exists!"
   elsif Person.invalid_name(params[:name])
     "Invalid name!"
+  elsif Person.invalid_title(params[:title])
+    "Invalid title!"
   else
     person = Person.new
     person.name = params[:name]

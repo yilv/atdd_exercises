@@ -17,6 +17,12 @@ InvalidNameTooLong
 ValidNameAndNoTitle
     Lv Yi    \    Lv Yi, \ has been created!
 
+ValidTitle
+    Lv Yi    Developer    Lv Yi, Developer has been created!
+
+InvalidTitle
+    Lv Yi    Engineer    Invalid title!
+
 *** Keywords ***
 ApplyRulesOnCreatingPerson
     [Arguments]    ${name}    ${title}    ${output}
