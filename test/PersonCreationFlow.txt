@@ -1,0 +1,23 @@
+*** Settings ***
+Test Setup        Run Keywords    Open Browser    ${SERVER}    AND    DeletePeople
+Test Teardown     Run Keywords    DeletePeople    AND    Close Browser
+Resource          PersonResource.txt
+
+*** Test Cases ***
+SuccessfullyCreateAPerson
+    CreatePerson    Lv Yi    Coach
+    VerifyOutput    Lv Yi, Coach has been created!
+    VerifyPerson    Lv Yi    Coach
+
+SuccessfullyCreateMultiplePersons
+    CreatePerson    Lv Yi    Coach
+    CreatePerson    Lv Lechun    Daughter
+    VerifyOutput    Lv Lechun, Daughter has been created!
+    VerifyPerson    Lv Lechun    Daughter
+    VerifyPerson    Lv Yi    Coach
+
+NotCreateSamePerson
+    CreatePerson    Lv Yi    Coach
+    CreatePerson    Lv Yi    Developer
+    VerifyOutput    Lv Yi already exists!
+    VerifyPerson    Lv Yi    Coach
