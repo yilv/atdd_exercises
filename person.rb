@@ -8,15 +8,20 @@ class Person
   property :name, Text, :required => true
   property :title, Text
 
-  def self.existing_name(name)
+  def initialize(name, title)
+    self.name = name
+    self.title = title
+  end
+
+  def existing_name
     Person.first(:name => name)
   end
 
-  def self.invalid_name(name)
+  def invalid_name
     (name =~ /^[^a-zA-Z]/) || (name.size > 20)
   end
 
-  def self.invalid_title(title)
+  def invalid_title
     if (title == "") then return false end
     !(title =~ /Coach|Developer/)
   end
