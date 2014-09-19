@@ -1,0 +1,27 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Variables ***
+${SERVER}         http://localhost:4567
+
+*** Keywords ***
+CreatePerson
+    [Arguments]    ${name}    ${title}
+    Go To    ${SERVER}/create
+    Input Text    name    ${name}
+    Input Text    title    ${title}
+    Submit Form
+
+VerifyPerson
+    [Arguments]    ${name}    ${title}
+    Go To    ${SERVER}/people
+    Page Should Contain    ${name}
+    Page Should Contain    ${title}
+
+VerifyOutput
+    [Arguments]    ${output}
+    Page Should Contain    ${output}
+
+DeletePeople
+    Go To    ${SERVER}/people
+    Submit Form    destroy

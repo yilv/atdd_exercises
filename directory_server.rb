@@ -1,16 +1,5 @@
 require 'sinatra'
-require 'data_mapper'
-
-DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/directory_server.db")
-
-class Person
-  include DataMapper::Resource
-  property :id, Serial
-  property :name, Text, :required => true
-  property :title, Text
-end
-
-DataMapper.finalize.auto_upgrade!
+require_relative 'person'
 
 get '/' do
   "hello world!"
@@ -21,14 +10,16 @@ get '/create' do
 end
 
 post '/create' do
-  unless Person.first(:name => params[:name])
-    person = Person.new
-    person.name = params[:name]
-    person.title = params[:title]
-    person.save
-    "#{params[:name]}, #{params[:title]} has been created!"
-  else
+  person = Person.new(params[:name], params[:title])
+  if person.existing_name
     "#{params[:name]} already exists!"
+  elsif person.invalid_name
+    "Invalid name!"
+  elsif person.invalid_title
+    "Invalid title!"
+  else
+    person.save
+    "#{person.name}, #{person.title} has been created!"
   end
 end
 
