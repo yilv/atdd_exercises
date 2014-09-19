@@ -1,0 +1,51 @@
+*** Settings ***
+Test Template     CreatePersonTemplate
+Test Setup        Run Keywords    Open Browser    ${SERVER}    AND    DeletePeople
+Test Teardown     Run Keywords    DeletePeople    AND    Close Browser
+Library           Selenium2Library
+
+*** Variables ***
+${SERVER}         http://localhost:4567
+
+*** Test Cases ***                     
+Successfully Create A Person           
+#   Name        Title    Result
+    Lv Yi       Coach    Lv Yi, Coach has been created!
+
+Successfully Create Multiple Person    
+#   Name        Title      Result
+    Lv Yi       Coach      Lv Yi, Coach has been created!
+    Zhou Feng   Tester     Zhou Feng, Tester has been created!
+    Zhang Eric  Teacher    Zhang Eric, Teacher has been created!
+
+Not Create Same Person
+#   Name        Title      Result
+    Lv Yi       Coach      Lv Yi, Coach has been created!
+    Lv Yi       Developer  Lv Yi already exists!
+
+*** Keywords ***
+CreatePersonTemplate
+    [Arguments]    ${name}    ${title}    ${output}
+    CreatePerson    ${name}    ${title}
+    VerifyOutput    ${output}
+    VerifyPerson    ${name}
+
+CreatePerson
+    [Arguments]    ${name}    ${title}
+    Go To    ${SERVER}/create
+    Input Text    name    ${name}
+    Input Text    title    ${title}
+    Submit Form
+
+VerifyPerson
+    [Arguments]    ${name}
+    Go To    ${SERVER}/people
+    Page Should Contain    ${name}
+
+VerifyOutput
+    [Arguments]    ${output}
+    Page Should Contain    ${output}
+
+DeletePeople
+    Go To    ${SERVER}/people
+    Submit Form    destroy
