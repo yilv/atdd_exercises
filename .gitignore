@@ -1,1 +1,7 @@
 *.png
+directory_server.db
+log.html
+output.xml
+person.db
+report.html
+*.swp

@@ -18,6 +18,11 @@ VerifyPerson
     Page Should Contain    ${name}
     Page Should Contain    ${title}
 
+PersonExists
+    [Arguments]    ${name}
+    Go To    ${SERVER}/people
+    Page Should Contain    ${name}
+
 VerifyOutput
     [Arguments]    ${output}
     Page Should Contain    ${output}
