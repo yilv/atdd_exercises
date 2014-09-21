@@ -7,22 +7,22 @@ Resource          PersonResource.txt
 *** Test Cases ***
 Successfully Create A Person
 #   Name        Title    Result
-    Lv Yi       Coach    Lv Yi, Coach has been created!
+    Lv Yi       Coach    Successful
 
 Successfully Create Multiple Person
 #   Name         Title        Result
-    Lv Yi        Coach        Lv Yi, Coach has been created!
-    Zhou Feng    Developer    Zhou Feng, Developer has been created!
-    Zhang Eric   Developer    Zhang Eric, Developer has been created!
+    Lv Yi        Coach        Successful
+    Zhou Feng    Developer    Successful
+    Zhang Eric   Developer    Successful
 
 Not Create Same Person
 #   Name        Title      Result
-    Lv Yi       Coach      Lv Yi, Coach has been created!
-    Lv Yi       Developer  Lv Yi already exists!
+    Lv Yi       Coach      Successful
+    Lv Yi       Developer  Failed
 
 *** Keywords ***
 CreatePersonTemplate
-    [Arguments]    ${name}    ${title}    ${output}
+    [Arguments]    ${name}    ${title}    ${result}
     CreatePerson    ${name}    ${title}
-    VerifyOutput    ${output}
+    CheckExpectation    ${result}
     PersonExists    ${name}

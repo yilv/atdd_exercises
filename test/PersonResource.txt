@@ -18,11 +18,6 @@ VerifyPerson
     Page Should Contain    ${name}
     Page Should Contain    ${title}
 
-PersonExists
-    [Arguments]    ${name}
-    Go To    ${SERVER}/people
-    Page Should Contain    ${name}
-
 VerifyOutput
     [Arguments]    ${output}
     Page Should Contain    ${output}
@@ -30,3 +25,13 @@ VerifyOutput
 DeletePeople
     Go To    ${SERVER}/people
     Submit Form    destroy
+
+PersonExists
+    [Arguments]    ${name}
+    Go To    ${SERVER}/people
+    Page Should Contain    ${name}
+
+CheckExpectation
+    [Arguments]    ${exp}
+    Run Keyword If    '${exp}' == 'Successful'    Page Should Contain    created
+    Run Keyword If    '${exp}' == 'Failed'        Page Should Contain    exists
