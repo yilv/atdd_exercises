@@ -1,6 +1,7 @@
 *** Settings ***
 Test Setup        Run Keywords    Open Browser    ${SERVER}    AND    DeletePeople
 Test Teardown     Run Keywords    DeletePeople    AND    Close Browser
+
 Test Template     CreatePersonTemplate
 Resource          PersonResource.txt
 
@@ -19,10 +20,3 @@ Not Create Same Person
 #   Name        Title      Result
     Lv Yi       Coach      Successful
     Lv Yi       Developer  Failed
-
-*** Keywords ***
-CreatePersonTemplate
-    [Arguments]    ${name}    ${title}    ${result}
-    CreatePerson    ${name}    ${title}
-    CheckExpectation    ${result}
-    PersonExists    ${name}

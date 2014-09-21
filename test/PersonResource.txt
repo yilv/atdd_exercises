@@ -26,6 +26,13 @@ DeletePeople
     Go To    ${SERVER}/people
     Submit Form    destroy
 
+
+CreatePersonTemplate
+    [Arguments]    ${name}    ${title}    ${result}
+    CreatePerson    ${name}    ${title}
+    CheckExpectation    ${result}
+    PersonExists    ${name}
+    
 PersonExists
     [Arguments]    ${name}
     Go To    ${SERVER}/people
