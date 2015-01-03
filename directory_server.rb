@@ -10,14 +10,16 @@ get '/create' do
 end
 
 post '/create' do
-  person = Person.new(params[:name], params[:title])
-  if person.existing_name
-    "#{params[:name]} already exists!"
-  elsif person.invalid_name
+  person = Person.new(
+    :name => params[:name], 
+    :title => params[:title]
+  )
+  if person.invalid_name
     "Invalid name!"
   elsif person.invalid_title
     "Invalid title!"
   else
+    person.unique_name
     person.save
     "#{person.name}, #{person.title} has been created!"
   end

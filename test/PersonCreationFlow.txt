@@ -16,8 +16,15 @@ SuccessfullyCreateMultiplePersons
     VerifyPerson    Zhang Liaoyuan    Developer
     VerifyPerson    Lv Yi    Coach
 
-NotCreateSamePerson
+CreatePersonWithSameName
     CreatePerson    Lv Yi    Coach
     CreatePerson    Lv Yi    Developer
-    VerifyOutput    Lv Yi already exists!
+    VerifyOutput    Lv Yi.1, Developer has been created!
+    CreatePerson    Lv Yi    Coach
+    VerifyOutput    Lv Yi.2, Coach has been created!
+    CreatePerson    Lv Yi    Developer
+    VerifyOutput    Lv Yi.3, Developer has been created!
     VerifyPerson    Lv Yi    Coach
+    VerifyPerson    Lv Yi.1    Developer
+    VerifyPerson    Lv Yi.2    Coach
+    VerifyPerson    Lv Yi.3    Developer
