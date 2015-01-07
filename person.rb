@@ -22,6 +22,7 @@ class Person
   end
 
   def invalid_name
+    if (@name == "") then return true end
     (@name =~ /^[^a-zA-Z]/) || (@name.size > 20)
   end
 
