@@ -9,10 +9,7 @@ When(/^create a person \"(.*)\", \"(.*)\"$/) do |name, title|
   fill_in 'name', :with => name
   fill_in 'title', :with => title
   click_button 'Create'
-end
-
-Then(/^succeed$/) do
-  expect(page).to have_content("created!")
+  sleep(0.5)
 end
 
 Then(/^see \"(.*?)\"$/) do |message|

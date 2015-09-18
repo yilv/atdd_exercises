@@ -5,22 +5,22 @@ Feature: CreatePerson
 
   Scenario: Succeed in creating a person
     When create a person "Lv Yi", "Coach"
-    Then succeed
+    Then see "created!"
     Then the person "Lv Yi", "Coach" exists
 
   Scenario: Succeed in creating two people
     Given create a person "Lv Yi", "Coach"
-    And succeed
+    And see "created!"
     When create a person "Zhang Liaoyuan", "Developer"
-    Then succeed
+    Then see "created!"
     Then the person "Zhang Liaoyuan", "Developer" exists
     Then the person "Lv Yi", "Coach" exists
 
   Scenario: Succeed in creating people with same name
     Given create a person "Lv Yi", "Coach"
-    And succeed
+    And see "created!"
     When create a person "Lv Yi", "Developer"
-    Then succeed
+    Then see "created!"
     Then the person "Lv Yi", "Coach" exists
     Then the person "Lv Yi.1", "Developer" exists
     
