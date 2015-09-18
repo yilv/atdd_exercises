@@ -18,6 +18,7 @@ Feature: CreatePerson
 
   Scenario: Succeed in creating people with same name
     Given create a person "Lv Yi", "Coach"
+    And succeed
     When create a person "Lv Yi", "Developer"
     Then succeed
     Then the person "Lv Yi", "Coach" exists
