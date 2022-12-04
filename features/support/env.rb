@@ -1,4 +1,7 @@
 require 'capybara/cucumber'
+require "rspec/wait"
+
+World(RSpec::Wait)
 
 Capybara.default_driver = :selenium
 

@@ -1,8 +1,5 @@
 require "rspec"
-require "wrong"
 require_relative "../../person"
-
-include Wrong
 
 When(/^create a person \"(.*)\", \"(.*)\"$/) do |name, title|
   visit 'http://localhost:4567/create'
@@ -26,5 +23,5 @@ end
 Given(/^delete all people$/) do
   visit 'http://localhost:4567/people'
   click_button 'Delete All!'
-  eventually { expect(Person.count).to eq(0) }
+  wait_for(Person.count).to eq(0)
 end
